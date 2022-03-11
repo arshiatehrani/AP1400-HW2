@@ -3,59 +3,66 @@
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
-/*
 TEST(HW1Test, TEST1)
 {
     Server server {};
     auto bryan { server.add_client("bryan") };
     EXPECT_EQ(bryan->get_id(), "bryan");
 }
-TEST(HW1Test, TEST2) {
-    Server server{};
-    auto bryan{server.add_client("bryan")};
-    auto bryan_from_server{server.get_client("bryan")};
+TEST(HW1Test, TEST2)
+{
+    Server server {};
+    auto bryan { server.add_client("bryan") };
+    auto bryan_from_server { server.get_client("bryan") };
     EXPECT_EQ(bryan.get(), bryan_from_server.get());
 }
-TEST(HW1Test, TEST3) {
-    Server server{};
-    auto bryan{server.add_client("bryan")};
+TEST(HW1Test, TEST3)
+{
+    Server server {};
+    auto bryan { server.add_client("bryan") };
     EXPECT_DOUBLE_EQ(bryan->get_wallet(), 5.0);
 }
-TEST(HW1Test, TEST4) {
-    Server server{};
-    auto bryan1{server.add_client("bryan")};
-    auto bryan2{server.add_client("bryan")};
-    auto bryan3{server.add_client("bryan")};
+TEST(HW1Test, TEST4)
+{
+    Server server {};
+    auto bryan1 { server.add_client("bryan") };
+    auto bryan2 { server.add_client("bryan") };
+    auto bryan3 { server.add_client("bryan") };
     EXPECT_NE(bryan1->get_id(), bryan2->get_id());
     EXPECT_NE(bryan1->get_id(), bryan3->get_id());
     EXPECT_NE(bryan2->get_id(), bryan3->get_id());
 }
-TEST(HW1Test, TEST5) {
-    Server server{};
-    auto bryan{server.add_client("bryan")};
-    std::string public_key{bryan->get_publickey()};
+TEST(HW1Test, TEST5)
+{
+    Server server {};
+    auto bryan { server.add_client("bryan") };
+    std::string public_key { bryan->get_publickey() };
     EXPECT_TRUE(!bryan->get_publickey().empty());
 }
-TEST(HW1Test, TEST6) {
-    Server server{};
-    auto bryan{server.add_client("bryan")};
-    auto clint{server.add_client("clint")};
+TEST(HW1Test, TEST6)
+{
+    Server server {};
+    auto bryan { server.add_client("bryan") };
+    auto clint { server.add_client("clint") };
     EXPECT_TRUE(bryan->get_publickey() != clint->get_publickey());
 }
-TEST(HW1Test, TEST7) {
-    Server server{};
-    auto bryan{server.add_client("bryan")};
-    auto clint{server.add_client("clint")};
-    Server const* p{&server};
+TEST(HW1Test, TEST7)
+{
+    Server server {};
+    auto bryan { server.add_client("bryan") };
+    auto clint { server.add_client("clint") };
+    Server const* p { &server };
     auto client = p->get_client("no_one");
     EXPECT_TRUE(client == nullptr);
 }
-TEST(HW1Test, TEST8) {
-    Server server{};
-    auto bryan{server.add_client("bryan")};
-    auto clint{server.add_client("clint")};
+TEST(HW1Test, TEST8)
+{
+    Server server {};
+    auto bryan { server.add_client("bryan") };
+    auto clint { server.add_client("clint") };
     show_wallets(server);
 }
+/*
 TEST(HW1Test, TEST9) {
     Server server{};
     auto bryan{server.add_client("bryan")};

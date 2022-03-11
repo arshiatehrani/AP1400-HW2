@@ -6,10 +6,15 @@
 
 int main(int argc, char** argv)
 {
-    if (true) // make false to run unit-tests
+    if (false) // make false to run unit-tests
     {
-        Server s;
-        s.add_client("asdfasdf");
+        std::cout << "Hello world!!!" << std::endl;
+        Server s {};
+        s.add_client("arshia");
+        std::cout << s.get_client("arshia") << std::endl;
+        std::cout << s.get_wallet("arshia") << std::endl;
+        Client a { "arshia", s };
+        std::cout << a.get_wallet() << std::endl;
     } else {
         ::testing::InitGoogleTest(&argc, argv);
         std::cout << "RUNNING TESTS ..." << std::endl;
