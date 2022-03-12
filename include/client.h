@@ -10,10 +10,10 @@
 class Server;
 class Client {
 public:
-    Client(std::string id, const Server& server);
-    const std::string get_id() const;
-    const std::string get_publickey() const;
-    const double get_wallet() const;
+    Client(std::string id, const Server& server); // client constructor
+    const std::string get_id() const; // client get_id
+    const std::string get_publickey() const; // client get_public key
+    const double get_wallet() const; // client get_wallet
     std::string sign(std::string txt);
     bool transfer_money(std::string receiver, double value);
     size_t generate_nonce();

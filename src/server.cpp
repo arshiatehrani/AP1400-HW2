@@ -13,7 +13,6 @@ std::shared_ptr<Client> Server::add_client(std::string id)
             break;
         }
     }
-
     double wallet { 5 };
     std::shared_ptr<Client> pntr_client { std::make_shared<Client>(id, *this) };
     clients[pntr_client] = wallet;
@@ -48,4 +47,24 @@ void show_wallets(const Server& server)
     for (const auto& client : server.clients)
         std::cout << client.first->get_id() << " : " << client.second << std::endl;
     std::cout << std::string(20, '*') << std::endl;
+}
+bool Server::parse_trx(std::string& trx, std::string& sender, std::string& receiver, double& value)
+{
+    std::string svalue;
+    size_t cnt {};
+    for (const auto& c : trx) {
+        if (c == '-') {
+            cnt++;
+            continue;
+        }
+        if (cnt == 0)
+            sender += c;
+        if (cnt == 1)
+            receiver += c;
+        if (cnt == 2)
+            svalue += c;
+    }
+    value = std::stod(svalue);
+    std::cout << sender << " " << receiver << " " << value << std::endl;
+    return true;
 }

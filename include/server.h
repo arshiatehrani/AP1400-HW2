@@ -8,15 +8,16 @@
 #include <map>
 #include <memory>
 #include <random>
+#include <sstream>
 #include <string>
 class Client;
 class Server {
 public:
-    Server() = default;
-    std::shared_ptr<Client> add_client(std::string id);
-    const std::shared_ptr<Client> get_client(const std::string& id) const;
-    const double get_wallet(const std::string& id) const;
-    bool parse_trx(std::string trx, std::string sender, std::string receiver, double value);
+    Server() = default; // server default constructor
+    std::shared_ptr<Client> add_client(std::string id); // server add_client
+    const std::shared_ptr<Client> get_client(const std::string& id) const; // server get_client
+    const double get_wallet(const std::string& id) const; // server get_wallet
+    bool parse_trx(std::string& trx, std::string& sender, std::string& receiver, double& value);
     bool add_pending_trx(std::string trx, std::string signature);
     size_t mine();
     friend void show_wallets(const Server& server);
