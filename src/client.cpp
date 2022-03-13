@@ -29,3 +29,10 @@ std::string Client::sign(const std::string& txt) const
     std::string signature = crypto::signMessage(private_key, txt);
     return signature;
 }
+size_t Client::generate_nonce()
+{
+    std::random_device rd;
+    std::mt19937 mt(rd());
+    std::uniform_real_distribution<double> dist(1, static_cast<double>(SIZE_MAX));
+    return static_cast<size_t>(dist(mt));
+}
