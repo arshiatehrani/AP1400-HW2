@@ -1,4 +1,5 @@
 #include "server.h"
+std::vector<std::string> pending_trxs;
 std::shared_ptr<Client> Server::add_client(std::string id)
 {
     std::cout << "add_client server" << std::endl;
@@ -78,7 +79,6 @@ bool Server::add_pending_trx(std::string trx, std::string signature)
     }
     return false;
 }
-std::vector<std::string> pending_trxs;
 
 void show_wallets(const Server& server)
 {
