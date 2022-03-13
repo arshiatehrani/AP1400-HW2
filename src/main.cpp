@@ -10,11 +10,14 @@ int main(int argc, char** argv)
     {
         std::cout << "Hello world!!!" << std::endl;
         Server s {};
+        // s.add_client("arshia");
+        // std::cout << s.get_client("arshia") << std::endl;
+        // std::cout << s.get_wallet("arshia") << std::endl;
+        // Client a { "arshia", s };
+        // std::cout << a.get_wallet() << std::endl;
+        // std::cout << s.add_pending_trx("arshia-ali-5", "aaaaa") << std::endl;
         s.add_client("arshia");
-        std::cout << s.get_client("arshia") << std::endl;
-        std::cout << s.get_wallet("arshia") << std::endl;
-        Client a { "arshia", s };
-        std::cout << a.get_wallet() << std::endl;
+        s.add_pending_trx("arshia-ali-5", "aaaaa");
     } else {
         ::testing::InitGoogleTest(&argc, argv);
         std::cout << "RUNNING TESTS ..." << std::endl;

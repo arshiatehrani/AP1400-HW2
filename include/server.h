@@ -17,7 +17,7 @@ public:
     std::shared_ptr<Client> add_client(std::string id); // server add_client
     const std::shared_ptr<Client> get_client(const std::string& id) const; // server get_client
     const double get_wallet(const std::string& id) const; // server get_wallet
-    bool parse_trx(std::string& trx, std::string& sender, std::string& receiver, double& value);
+    static bool parse_trx(std::string trx, std::string& sender, std::string& receiver, double& value); // server parse_trx
     bool add_pending_trx(std::string trx, std::string signature);
     size_t mine();
     friend void show_wallets(const Server& server);
@@ -25,5 +25,4 @@ public:
 private:
     std::map<std::shared_ptr<Client>, double> clients;
 };
-
 #endif // SERVER_H

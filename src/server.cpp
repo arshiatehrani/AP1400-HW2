@@ -41,14 +41,7 @@ const double Server::get_wallet(const std::string& id) const
     throw std::logic_error("Client not found!");
 }
 
-void show_wallets(const Server& server)
-{
-    std::cout << std::string(20, '*') << std::endl;
-    for (const auto& client : server.clients)
-        std::cout << client.first->get_id() << " : " << client.second << std::endl;
-    std::cout << std::string(20, '*') << std::endl;
-}
-bool Server::parse_trx(std::string& trx, std::string& sender, std::string& receiver, double& value)
+bool Server::parse_trx(std::string trx, std::string& sender, std::string& receiver, double& value)
 {
     std::string svalue;
     size_t cnt {};
@@ -64,7 +57,33 @@ bool Server::parse_trx(std::string& trx, std::string& sender, std::string& recei
         if (cnt == 2)
             svalue += c;
     }
+    if (cnt != 2)
+        throw std::runtime_error("wrong input");
     value = std::stod(svalue);
     std::cout << sender << " " << receiver << " " << value << std::endl;
     return true;
+}
+
+bool Server::add_pending_trx(std::string trx, std::string signature)
+{
+
+    std::string sender_id;
+    std::string receiver_id;
+    double value;
+    parse_trx(trx, sender_id, receiver_id, value);
+    bool authentic = crypto::verifySignature(get_client(sender_id)->get_publickey(), trx, signature);
+    if (authentic && (get_client(sender_id)->get_wallet() >= value)) {
+        pending_trxs.push_back(trx);
+        return true;
+    }
+    return false;
+}
+std::vector<std::string> pending_trxs;
+
+void show_wallets(const Server& server)
+{
+    std::cout << std::string(20, '*') << std::endl;
+    for (const auto& client : server.clients)
+        std::cout << client.first->get_id() << " : " << client.second << std::endl;
+    std::cout << std::string(20, '*') << std::endl;
 }

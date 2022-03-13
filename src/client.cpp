@@ -24,3 +24,8 @@ const double Client::get_wallet() const
     std::cout << "get_waller client" << std::endl;
     return server->get_wallet(id);
 }
+std::string Client::sign(const std::string& txt) const
+{
+    std::string signature = crypto::signMessage(private_key, txt);
+    return signature;
+}
