@@ -112,7 +112,7 @@ size_t Server::mine()
                     std::cout << "********Wallet after mine: " << clients[get_client(sender[k])] << std::endl;
                     pending_trxs.clear();
                     std::cout << "********Miner's ID: " << sender[k] << std::endl;
-                    std::cout << "********Hash: " << hash << std::endl;
+                    // std::cout << "********Hash: " << hash << std::endl;
                     return nonce;
                 }
             }
