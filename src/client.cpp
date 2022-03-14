@@ -31,8 +31,12 @@ std::string Client::sign(const std::string& txt) const
 }
 bool Client::transfer_money(std::string receiver, double value)
 {
-    if (server->get_client(receiver) == nullptr)
+    if (server->get_client(receiver) == nullptr || (value > get_wallet()))
         return false;
+    if (receiver.compare(get_id()) == 0) {
+        std::cout << "cannot perfome" << std::endl;
+        return false;
+    }
     std::string trx {};
     trx += this->get_id() + "-" + receiver + "-" + std::to_string(value);
     std::cout << "trx:" << trx << std::endl;
