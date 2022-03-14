@@ -100,13 +100,13 @@ size_t Server::mine()
             size_t nonce { get_client(sender[k])->generate_nonce() };
             hash = crypto::sha256(mempool + std::to_string(nonce));
             if (hash.substr(0, 10).find("0000") != std::string::npos) {
-                std::shared_ptr<Client> pntr_client { std::make_shared<Client>(sender[k], *this) };
-                std::cout << "Wallet before mine: " << clients[pntr_client] << std::endl;
-                clients[pntr_client] += 6.25;
-                std::cout << "Wallet after mine: " << clients[pntr_client] << std::endl;
+                // std::shared_ptr<Client> pntr_client { std::make_shared<Client>(sender[k], *this) };
+                std::cout << "********Wallet before mine: " << clients[get_client(sender[k])] << std::endl;
+                clients[get_client(sender[k])] += 6.25;
+                std::cout << "********Wallet after mine: " << clients[get_client(sender[k])] << std::endl;
                 pending_trxs.clear();
-                std::cout << "Miner's ID: " << sender[k] << std::endl;
-                std::cout << "Hash: " << hash << std::endl;
+                std::cout << "********Miner's ID: " << sender[k] << std::endl;
+                std::cout << "********Hash: " << hash << std::endl;
                 return nonce;
             }
         }
