@@ -97,21 +97,20 @@ size_t Server::mine()
         for (size_t j {}; j < pending_trxs.size(); j++) {
             parse_trx(pending_trxs[j], sender[j], receiver[j], value[j]);
         }
-
         while (true) {
-            for (size_t k {}; k < pending_trxs.size(); k++) {
-                size_t nonce { get_client(sender[k])->generate_nonce() };
+            for (const auto& [id, wallet] : clients) {
+                size_t nonce { (*id).generate_nonce() };
                 hash = crypto::sha256(mempool + std::to_string(nonce));
                 if (hash.substr(0, 10).find("000") != std::string::npos) {
                     for (size_t x {}; x < pending_trxs.size(); x++) {
                         clients[get_client(sender[x])] -= value[x];
                         clients[get_client(receiver[x])] += value[x];
                     }
-                    std::cout << "********Wallet before mine: " << clients[get_client(sender[k])] << std::endl;
-                    clients[get_client(sender[k])] += 6.25;
-                    std::cout << "********Wallet after mine: " << clients[get_client(sender[k])] << std::endl;
+                    std::cout << "********Wallet before mine: " << clients[id] << std::endl;
+                    clients[id] += 6.25;
+                    std::cout << "********Wallet after mine: " << clients[id] << std::endl;
                     pending_trxs.clear();
-                    std::cout << "********Miner's ID: " << sender[k] << std::endl;
+                    std::cout << "********Miner's ID: " << (*id).get_id() << std::endl;
                     std::cout << "********Hash: " << hash << std::endl;
                     return nonce;
                 }
@@ -126,3 +125,27 @@ void show_wallets(const Server& server)
         std::cout << client.first->get_id() << " : " << client.second << std::endl;
     std::cout << std::string(20, '*') << std::endl;
 }
+// extracting sender
+// for (size_t j {}; j < pending_trxs.size(); j++) {
+//     parse_trx(pending_trxs[j], sender[j], receiver[j], value[j]);
+// }
+
+// while (true) {
+//     for (size_t k {}; k < pending_trxs.size(); k++) {
+//         size_t nonce { get_client(sender[k])->generate_nonce() };
+//         hash = crypto::sha256(mempool + std::to_string(nonce));
+//         if (hash.substr(0, 10).find("000") != std::string::npos) {
+//             for (size_t x {}; x < pending_trxs.size(); x++) {
+//                 clients[get_client(sender[x])] -= value[x];
+//                 clients[get_client(receiver[x])] += value[x];
+//             }
+//             std::cout << "********Wallet before mine: " << clients[get_client(sender[k])] << std::endl;
+//             clients[get_client(sender[k])] += 6.25;
+//             std::cout << "********Wallet after mine: " << clients[get_client(sender[k])] << std::endl;
+//             pending_trxs.clear();
+//             std::cout << "********Miner's ID: " << sender[k] << std::endl;
+//             std::cout << "********Hash: " << hash << std::endl;
+//             return nonce;
+//         }
+//     }
+// }

@@ -12,28 +12,44 @@ void show_pending_transactions()
 }
 int main(int argc, char** argv)
 {
-    if (false) // make false to run unit-tests
+    if (true) // make false to run unit-tests
     {
-        std::cout << "Hello world!!!" << std::endl;
+
+        // std::cout << "Hello world!!!" << std::endl;
         Server s {};
+        // auto u1 { s.add_client("arshia") };
+        // auto u2 { s.add_client("ali") };
+        // auto u3 { s.add_client("yasi") };
+        // auto u4 { s.add_client("zahra") };
+
+        // std::cout << "arshia's wallet" << u1->get_wallet() << std::endl;
+        // std::cout << "ali's wallet" << u2->get_wallet() << std::endl;
+        // std::cout << "yasi's wallet" << u3->get_wallet() << std::endl;
+        // std::cout << "zahra's wallet" << u4->get_wallet() << std::endl;
+
+        // u1->transfer_money("ali", 1);
+        // u2->transfer_money("yasi", 3);
+        // u3->transfer_money("arshia", 2);
+        // u4->transfer_money("zahra", 6);
+        // for (auto a : pending_trxs)
+        //     std::cout << a << std::endl;
+        // s.mine();
+
         auto u1 { s.add_client("arshia") };
-        auto u2 { s.add_client("ali") };
-        auto u3 { s.add_client("yasi") };
-        auto u4 { s.add_client("zahra") };
+        auto u2 { s.add_client("arshia") };
+        auto u3 { s.add_client("arshia") };
+        auto u4 { s.add_client("arshia") };
+        std::cout << "u1: " << u1->get_id() << std::endl;
+        std::cout << "u2: " << u2->get_id() << std::endl;
+        std::cout << "u3: " << u3->get_id() << std::endl;
+        std::cout << "u4: " << u4->get_id() << std::endl;
 
-        std::cout << "arshia's wallet" << u1->get_wallet() << std::endl;
-        std::cout << "ali's wallet" << u2->get_wallet() << std::endl;
-        std::cout << "yasi's wallet" << u3->get_wallet() << std::endl;
-        std::cout << "zahra's wallet" << u4->get_wallet() << std::endl;
-
-        // s.add_pending_trx("arshia-ali-6", u1->sign("arshia-ali-6"));
-        // std::cout << "transfer money: " << u1->transfer_money("ali", 6) << std::endl;
-        u1->transfer_money("ali", 1);
-        u2->transfer_money("yasi", 3);
+        u1->transfer_money("arshia", 1);
+        u2->transfer_money("arshia", 3);
         u3->transfer_money("arshia", 2);
-        u4->transfer_money("zahra", 6);
+        u4->transfer_money("arshia", 1);
         for (auto a : pending_trxs)
-            std::cout << a << std::endl;
+            std::cout << "trx########## " << a << std::endl;
         s.mine();
         // s.add_pending_trx("yasi-zahra-1", u3->sign("yasi-zahra-1"));
         // s.add_pending_trx("zahra-ali-1", u4->sign("zahra-ali-1"));
