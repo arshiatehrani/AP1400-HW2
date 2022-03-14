@@ -2,7 +2,6 @@
 std::vector<std::string> pending_trxs;
 std::shared_ptr<Client> Server::add_client(std::string id)
 {
-    std::cout << "add_client server" << std::endl;
     for (const auto& [name, value] : clients) {
         const std::strong_ordering order = id <=> (*name).get_id();
         if (std::is_eq(order)) {
@@ -21,7 +20,6 @@ std::shared_ptr<Client> Server::add_client(std::string id)
 }
 const std::shared_ptr<Client> Server::get_client(const std::string& id) const
 {
-    std::cout << "get_client server" << std::endl;
     for (const auto& [name, value] : clients) {
         const std::strong_ordering order = id <=> (*name).get_id();
         if (std::is_eq(order)) {
@@ -32,7 +30,6 @@ const std::shared_ptr<Client> Server::get_client(const std::string& id) const
 }
 const double Server::get_wallet(const std::string& id) const
 {
-    std::cout << "get_wallet server" << std::endl;
     for (const auto& [name, value] : clients) {
         const std::strong_ordering order = id <=> (*name).get_id();
         if (std::is_eq(order)) {
@@ -73,7 +70,6 @@ bool Server::add_pending_trx(std::string trx, std::string signature) const
     double value;
     parse_trx(trx, sender_id, receiver_id, value);
     bool authentic = crypto::verifySignature(get_client(sender_id)->get_publickey(), trx, signature);
-    std::cout << "*****************Wallet: " << get_client(sender_id)->get_wallet() << "*************value: " << value << std::endl;
     if (authentic && (get_client(sender_id)->get_wallet() >= value)) {
         pending_trxs.push_back(trx);
         return true;
@@ -106,12 +102,9 @@ size_t Server::mine()
                         clients[get_client(sender[x])] -= value[x];
                         clients[get_client(receiver[x])] += value[x];
                     }
-                    std::cout << "********Wallet before mine: " << clients[id] << std::endl;
                     clients[id] += 6.25;
-                    std::cout << "********Wallet after mine: " << clients[id] << std::endl;
                     pending_trxs.clear();
                     std::cout << "********Miner's ID: " << (*id).get_id() << std::endl;
-                    std::cout << "********Hash: " << hash << std::endl;
                     return nonce;
                 }
             }

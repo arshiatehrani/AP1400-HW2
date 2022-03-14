@@ -3,7 +3,6 @@ Client::Client(std::string _id, const Server& _server)
     : id { _id }
     , server { &_server }
 {
-    std::cout << "Client constructor" << std::endl;
     std::string _public_key {}, _private_key {};
     crypto::generate_key(_public_key, _private_key);
     public_key = _public_key;
@@ -11,17 +10,14 @@ Client::Client(std::string _id, const Server& _server)
 }
 const std::string Client::get_id() const
 {
-    std::cout << "get_id client" << std::endl;
     return id;
 }
 const std::string Client::get_publickey() const
 {
-    std::cout << "get_publickey client" << std::endl;
     return public_key;
 }
 const double Client::get_wallet() const
 {
-    std::cout << "get_waller client" << std::endl;
     return server->get_wallet(id);
 }
 std::string Client::sign(const std::string& txt) const
@@ -34,13 +30,10 @@ bool Client::transfer_money(std::string receiver, double value)
     if (server->get_client(receiver) == nullptr || (value > get_wallet()))
         return false;
     if (receiver.compare(get_id()) == 0) {
-        std::cout << "cannot perfome" << std::endl;
         return false;
     }
     std::string trx {};
     trx += this->get_id() + "-" + receiver + "-" + std::to_string(value);
-    std::cout << "trx:" << trx << std::endl;
-    std::cout << "sign(trx): " << sign(trx) << std::endl;
     return server->add_pending_trx(trx, sign(trx));
 }
 size_t Client::generate_nonce()
