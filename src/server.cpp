@@ -36,7 +36,7 @@ const double Server::get_wallet(const std::string& id) const
             return value;
         }
     }
-    throw std::logic_error("Client not found!");
+    throw std::logic_error("Client is not found!");
 }
 
 bool Server::parse_trx(std::string trx, std::string& sender, std::string& receiver, double& value)
@@ -56,7 +56,7 @@ bool Server::parse_trx(std::string trx, std::string& sender, std::string& receiv
             svalue += c;
     }
     if (cnt != 2)
-        throw std::runtime_error("wrong input");
+        throw std::runtime_error("Wrong input!");
     value = std::stod(svalue);
     std::cout << sender << " " << receiver << " " << value << std::endl;
     return true;
@@ -89,7 +89,7 @@ size_t Server::mine()
         for (size_t i {}; i < pending_trxs.size(); i++) {
             mempool += pending_trxs[i];
         }
-        // extracting sender
+        // extracting senders, receivers and values
         for (size_t j {}; j < pending_trxs.size(); j++) {
             parse_trx(pending_trxs[j], sender[j], receiver[j], value[j]);
         }
@@ -104,7 +104,7 @@ size_t Server::mine()
                     }
                     clients[id] += 6.25;
                     pending_trxs.clear();
-                    std::cout << "********Miner's ID: " << (*id).get_id() << std::endl;
+                    std::cout << "Miner's ID: " << (*id).get_id() << std::endl;
                     return nonce;
                 }
             }
