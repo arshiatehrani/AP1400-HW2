@@ -83,7 +83,6 @@ size_t Server::mine()
 {
     std::string hash;
     std::string mempool;
-    std::vector<std::string> mempool_nonce { pending_trxs.size() };
     std::vector<std::string> sender { pending_trxs.size() };
     std::vector<std::string> receiver { pending_trxs.size() };
     double value;
@@ -94,13 +93,11 @@ size_t Server::mine()
     for (size_t j {}; j < pending_trxs.size(); j++) {
         parse_trx(pending_trxs[j], sender[j], receiver[j], value);
     }
-    hash = crypto::sha256(mempool + std::to_string(get_client(sender[0])->generate_nonce()));
     while (true) {
         for (size_t k {}; k < pending_trxs.size(); k++) {
             size_t nonce { get_client(sender[k])->generate_nonce() };
             hash = crypto::sha256(mempool + std::to_string(nonce));
             if (hash.substr(0, 10).find("0000") != std::string::npos) {
-                // std::shared_ptr<Client> pntr_client { std::make_shared<Client>(sender[k], *this) };
                 std::cout << "********Wallet before mine: " << clients[get_client(sender[k])] << std::endl;
                 clients[get_client(sender[k])] += 6.25;
                 std::cout << "********Wallet after mine: " << clients[get_client(sender[k])] << std::endl;
