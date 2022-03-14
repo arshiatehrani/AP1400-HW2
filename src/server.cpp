@@ -65,7 +65,7 @@ bool Server::parse_trx(std::string trx, std::string& sender, std::string& receiv
     return true;
 }
 
-bool Server::add_pending_trx(std::string trx, std::string signature)
+bool Server::add_pending_trx(std::string trx, std::string signature) const
 {
 
     std::string sender_id;
@@ -79,7 +79,25 @@ bool Server::add_pending_trx(std::string trx, std::string signature)
     }
     return false;
 }
-
+size_t Server::mine()
+{
+    std::string mempool;
+    std::vector<std::string> sender { pending_trxs.size() };
+    std::vector<std::string> receiver { pending_trxs.size() };
+    double value;
+    for (size_t i {}; i < pending_trxs.size(); i++) {
+        mempool += pending_trxs[i];
+    }
+    for (size_t j {}; j < pending_trxs.size(); j++) {
+        parse_trx(pending_trxs[j], sender[j], receiver[j], value);
+    }
+    mempool += std::to_string(get_client(sender[0])->generate_nonce());
+    // while (true) {
+    //     std::string hash { crypto::sha256(mempool) };
+    //     std::cout << hash << std::endl;
+    // }
+    return 1;
+}
 void show_wallets(const Server& server)
 {
     std::cout << std::string(20, '*') << std::endl;

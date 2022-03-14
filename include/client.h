@@ -1,6 +1,7 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 #include "server.h"
+#include <compare>
 #include <crypto.h>
 #include <iomanip>
 #include <iostream>
@@ -17,7 +18,7 @@ public:
     const double get_wallet() const; // client get_wallet
     std::string sign(const std::string& txt) const; // client sign
     bool transfer_money(std::string receiver, double value);
-    size_t generate_nonce();
+    size_t generate_nonce(); // client generate nonce
 
 private:
     Server const* const server;

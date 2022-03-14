@@ -87,35 +87,38 @@ TEST(HW1Test, TEST11)
     double value;
     EXPECT_THROW(Server::parse_trx("sarah-clay_0.5", sender, receiver, value), std::runtime_error);
 }
-/*
-TEST(HW1Test, TEST12) {
-    Server server{};
-    auto bryan{server.add_client("bryan")};
-    auto clint{server.add_client("clint")};
-    bool valid{bryan->transfer_money("no_one", 0.5)};
+TEST(HW1Test, TEST12)
+{
+    Server server {};
+    auto bryan { server.add_client("bryan") };
+    auto clint { server.add_client("clint") };
+    bool valid { bryan->transfer_money("no_one", 0.5) };
     EXPECT_FALSE(valid);
 }
-TEST(HW1Test, TEST13) {
-    Server server{};
-    auto bryan{server.add_client("bryan")};
-    auto clint{server.add_client("clint")};
-    bool valid{bryan->transfer_money("clint", 100)};
+TEST(HW1Test, TEST13)
+{
+    Server server {};
+    auto bryan { server.add_client("bryan") };
+    auto clint { server.add_client("clint") };
+    bool valid { bryan->transfer_money("clint", 100) };
     EXPECT_FALSE(valid);
 }
-TEST(HW1Test, TEST14) {
-    Server server{};
+TEST(HW1Test, TEST14)
+{
+    Server server {};
     pending_trxs.clear();
-    auto bryan{server.add_client("bryan")};
-    auto clint{server.add_client("clint")};
-    auto sarah{server.add_client("sarah")};
+    auto bryan { server.add_client("bryan") };
+    auto clint { server.add_client("clint") };
+    auto sarah { server.add_client("sarah") };
     EXPECT_TRUE(bryan->transfer_money("clint", 1));
     EXPECT_TRUE(clint->transfer_money("sarah", 2.5));
     EXPECT_TRUE(sarah->transfer_money("bryan", 0.5));
-    std::cout  <<  std::string(20, '*') <<  std::endl;
-    for(const  auto& trx : pending_trxs)
-        std::cout << trx <<  std::endl;
-    std::cout  <<  std::string(20, '*') <<  std::endl;
+    std::cout << std::string(20, '*') << std::endl;
+    for (const auto& trx : pending_trxs)
+        std::cout << trx << std::endl;
+    std::cout << std::string(20, '*') << std::endl;
 }
+/*
 TEST(HW1Test, TEST15) {
     Server server{};
     pending_trxs.clear();

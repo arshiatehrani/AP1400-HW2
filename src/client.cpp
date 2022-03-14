@@ -29,6 +29,16 @@ std::string Client::sign(const std::string& txt) const
     std::string signature = crypto::signMessage(private_key, txt);
     return signature;
 }
+bool Client::transfer_money(std::string receiver, double value)
+{
+    if (server->get_client(receiver) == nullptr)
+        return false;
+    std::string trx {};
+    trx += this->get_id() + "-" + receiver + "-" + std::to_string(value);
+    std::cout << "trx:" << trx << std::endl;
+    std::cout << "sign(trx): " << sign(trx) << std::endl;
+    return server->add_pending_trx(trx, sign(trx));
+}
 size_t Client::generate_nonce()
 {
     std::random_device rd;
