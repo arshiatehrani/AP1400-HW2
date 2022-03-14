@@ -17,7 +17,7 @@ public:
     const std::string get_publickey() const; // client get_public key
     const double get_wallet() const; // client get_wallet
     std::string sign(const std::string& txt) const; // client sign
-    bool transfer_money(std::string receiver, double value);
+    bool transfer_money(std::string receiver, double value); // client generate money
     size_t generate_nonce(); // client generate nonce
 
 private:

@@ -10,6 +10,7 @@
 #include <random>
 #include <sstream>
 #include <string>
+extern std::vector<std::string> pending_trxs;
 class Client;
 class Server {
 public:
@@ -20,7 +21,7 @@ public:
     static bool parse_trx(std::string trx, std::string& sender, std::string& receiver, double& value); // server parse_trx
     bool add_pending_trx(std::string trx, std::string signature) const; // Server add pending trx
     size_t mine();
-    friend void show_wallets(const Server& server);
+    friend void show_wallets(const Server& server); // server show wallets
 
 private:
     std::map<std::shared_ptr<Client>, double> clients;
