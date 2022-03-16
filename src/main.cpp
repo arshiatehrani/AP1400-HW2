@@ -15,7 +15,6 @@ int main(int argc, char** argv)
     if (false) // make false to run unit-tests
     {
 
-        // std::cout << "Hello world!!!" << std::endl;
         Server s {};
         auto Arshia { s.add_client("Arshia") };
         auto Jessy { s.add_client("Jessy") };
