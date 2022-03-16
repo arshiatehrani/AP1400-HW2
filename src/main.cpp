@@ -10,6 +10,7 @@ int main(int argc, char** argv)
     {
 
         Server s {};
+        // Clients:
         auto Arshia { s.add_client("Arshia") };
         auto Jessy { s.add_client("Jessy") };
         auto Bryan { s.add_client("Bryan") };
@@ -17,6 +18,7 @@ int main(int argc, char** argv)
 
         show_wallets(s);
 
+        // transactions:
         Jessy->transfer_money("Arshia", 1);
         Angelina->transfer_money("Jessy", 1);
         Bryan->transfer_money("Angelina", 1);
@@ -25,9 +27,12 @@ int main(int argc, char** argv)
         Jessy->transfer_money("Angelina", 1);
         Jessy->transfer_money("Angelina", 9);
 
+        // List of pending_transactions:
         for (auto a : pending_trxs)
             std::cout << a << std::endl;
+
         s.mine();
+
         show_wallets(s);
     } else {
         ::testing::InitGoogleTest(&argc, argv);
