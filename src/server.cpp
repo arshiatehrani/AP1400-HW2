@@ -100,8 +100,8 @@ size_t Server::mine()
             }
         }
     }
-    std::cout << "Miner's Wallet before trx: " << clients[id] << std::endl;
-
+    std::cout << "Miner's ID: " << (*id).get_id() << std::endl;
+    std::cout << "Miner's Wallet before transaction: " << clients[id] << std::endl;
     for (auto trx : pending_trxs) {
         std::string sender {}, receiver {};
         double value;
@@ -111,9 +111,8 @@ size_t Server::mine()
     }
     clients[id] += 6.25;
     pending_trxs.clear();
-    std::cout << "Miner's Wallet after trx: " << clients[id] << std::endl;
-    std::cout << "Miner's ID: " << (*id).get_id() << std::endl;
-    std::cout << "nonce: " << nonce << std::endl;
+    std::cout << "Miner's Wallet after transaction: " << clients[id] << std::endl;
+    std::cout << "Nonce: " << nonce << std::endl;
 
     return nonce;
 }
