@@ -88,13 +88,13 @@ size_t Server::mine()
     for (size_t i {}; i < pending_trxs.size(); i++)
         mempool += pending_trxs[i];
 
-    bool flag { true };
-    while (flag) {
+    bool m_flag { true };
+    while (m_flag) {
         for (const auto& [_id, wallet] : clients) {
             nonce = (*_id).generate_nonce();
             hash = crypto::sha256(mempool + std::to_string(nonce));
             if (hash.substr(0, 10).find("000") != std::string::npos) {
-                flag = false;
+                m_flag = false;
                 id = _id;
                 break;
             }
