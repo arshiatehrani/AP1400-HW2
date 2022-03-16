@@ -1,5 +1,5 @@
 #include "client.h"
-Client::Client(std::string _id, const Server& _server)
+Client::Client(const std::string& _id, const Server& _server)
     : id { _id }
     , server { &_server }
 {
@@ -25,15 +25,15 @@ std::string Client::sign(const std::string& txt) const
     std::string signature = crypto::signMessage(private_key, txt);
     return signature;
 }
-bool Client::transfer_money(std::string receiver, double value)
+bool Client::transfer_money(const std::string& receiver, const double& value)
 {
     if (server->get_client(receiver) == nullptr || (value > get_wallet()))
         return false;
-    if (receiver.compare(get_id()) == 0) {
+    if (receiver.compare(get_id()) == 0)
         return false;
-    }
-    std::string trx {};
-    trx += this->get_id() + "-" + receiver + "-" + std::to_string(value);
+
+    std::string trx;
+    trx = this->get_id() + "-" + receiver + "-" + std::to_string(value);
     return server->add_pending_trx(trx, sign(trx));
 }
 size_t Client::generate_nonce()
