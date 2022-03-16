@@ -12,25 +12,25 @@ void show_pending_transactions()
 }
 int main(int argc, char** argv)
 {
-    if (true) // make false to run unit-tests
+    if (false) // make false to run unit-tests
     {
 
         // std::cout << "Hello world!!!" << std::endl;
         Server s {};
-        auto arshia { s.add_client("arshia") };
-        auto ali { s.add_client("ali") };
-        auto yasi { s.add_client("yasi") };
-        auto zahra { s.add_client("zahra") };
+        auto Arshia { s.add_client("Arshia") };
+        auto Jessy { s.add_client("Jessy") };
+        auto Bryan { s.add_client("Bryan") };
+        auto Angelina { s.add_client("Angelina") };
 
         show_wallets(s);
 
-        ali->transfer_money("arshia", 1);
-        zahra->transfer_money("ali", 1);
-        yasi->transfer_money("zahra", 1);
-        arshia->transfer_money("yasi", 2);
-        ali->transfer_money("zahra", 1);
-        ali->transfer_money("zahra", 1);
-        ali->transfer_money("zahra", 9);
+        Jessy->transfer_money("Arshia", 1);
+        Angelina->transfer_money("Jessy", 1);
+        Bryan->transfer_money("Angelina", 1);
+        Arshia->transfer_money("Bryan", 2);
+        Jessy->transfer_money("Angelina", 1);
+        Jessy->transfer_money("Angelina", 1);
+        Jessy->transfer_money("Angelina", 9);
 
         for (auto a : pending_trxs)
             std::cout << a << std::endl;
